@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     map.addCity("October", 80, 200);
     map.addEdge("Cairo", "Alexandria", 5);
     map.addEdge("Cairo", "October", 8);
+    map.addEdge("Alexandria", "October", 12);
 
     displayMap();
 }
