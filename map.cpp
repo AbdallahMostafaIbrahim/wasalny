@@ -1,11 +1,14 @@
 #include "map.h"
+#include <iostream>
 
 Map::Map() {}
 
-void Map::addCity(string cityName)
+void Map::addCity(string cityName, float x, float y)
 {
-    vector<pair<string, int>> edges;
-    graph.insert({ cityName, edges });
+    if (cityCoordinates.find(cityName) == cityCoordinates.end()) {
+        cityCoordinates[cityName] = {x, y};
+        graph[cityName];
+    }
 }
 
 void Map::addEdge(string from, string to, int distance)
@@ -19,6 +22,40 @@ void Map::addEdge(string from, string to, int distance)
 void Map::findShortestPath(string from, string to, int &distance, vector<string> &path)
 {
     // TODO
+}
+
+MapCoordinates Map::getCityCoordinate(const string& city)
+{
+    auto it = cityCoordinates.find(city);
+    if (it != cityCoordinates.end()) {
+        return it->second;
+    } else {
+        throw std::runtime_error("City not found");
+    }
+}
+
+void Map::setCityCoordinate(const string &city, float x, float y)
+{
+    auto it = cityCoordinates.find(city);
+    if (it != cityCoordinates.end()) {
+        cityCoordinates[city] = {x, y};
+    } else {
+        throw std::runtime_error("City not found");
+    }
+}
+
+vector<string> Map::getCities()
+{
+    vector<string> cities;
+    for(const auto &kv : graph) {
+        cities.push_back(kv.first);
+    }
+    return cities;
+}
+
+vector<pair<string, int>> Map::getEdges(string city)
+{
+    return graph[city];
 }
 
 

@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsView>
+#include <QList>
+// #include "edge.h"
+#include "map.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -19,5 +23,11 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QGraphicsScene *scene;
+    QList<QGraphicsLineItem*> edges;
+    Map map;
+    void displayMap();
+    void drawEdges();
+
 };
 #endif // MAINWINDOW_H
