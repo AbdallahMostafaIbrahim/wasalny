@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "node.h"
+#include "edge.h"
 #include <QRandomGenerator>
 #include <QGraphicsTextItem>
 #include <QGraphicsEllipseItem>
@@ -58,8 +59,9 @@ void MainWindow::drawEdges() {
         MapCoordinates fromCoord = map.getCityCoordinate(city);
         for (const auto& edge : map.getEdges(city)) {
             MapCoordinates toCoord = map.getCityCoordinate(edge.first);
-            QGraphicsLineItem* lineItem = scene->addLine(QLineF(QPointF(fromCoord.x, fromCoord.y), QPointF(toCoord.x, toCoord.y)), QPen(Qt::blue));
-            edges.append(lineItem);
+            Edge* e = new Edge(QPointF(fromCoord.x, fromCoord.y), QPointF(toCoord.x, toCoord.y), edge.second);
+            scene->addItem(e);
+            edges.append(e);
         }
     }
 }

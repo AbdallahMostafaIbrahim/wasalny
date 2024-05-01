@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QGraphicsView>
 #include <QList>
-// #include "edge.h"
+#include "edge.h"
 #include "map.h"
 
 QT_BEGIN_NAMESPACE
@@ -24,7 +24,7 @@ public:
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
-    QList<QGraphicsLineItem*> edges;
+    QList<Edge*> edges;
     Map map;
     void displayMap();
     void drawEdges();
