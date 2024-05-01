@@ -30,6 +30,12 @@ QRectF Node::boundingRect() const
     return QRectF(0, 0, width, height);
 }
 
+void Node::focusOut()
+{
+    isFocused = false;
+    update();
+}
+
 QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     if (change == ItemPositionChange && scene()) {
@@ -43,12 +49,7 @@ QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
 void Node::focusInEvent(QFocusEvent *event)
 {
     isFocused = true;
-    update();
-}
-
-void Node::focusOutEvent(QFocusEvent *event)
-{
-    isFocused = false;
+    emit focused();
     update();
 }
 
