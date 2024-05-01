@@ -15,6 +15,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     map.cpp \
+    mapscene.cpp \
     node.cpp
 
 HEADERS += \
@@ -23,6 +24,7 @@ HEADERS += \
     loader.h \
     mainwindow.h \
     map.h \
+    mapscene.h \
     node.h
 
 FORMS += \

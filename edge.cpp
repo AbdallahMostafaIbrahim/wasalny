@@ -22,12 +22,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 void Edge::focusInEvent(QFocusEvent *event)
 {
     isFocused = true;
-    update();
-}
-
-void Edge::focusOutEvent(QFocusEvent *event)
-{
-    isFocused = false;
+    emit focused();
     update();
 }
 
@@ -56,4 +51,10 @@ QPainterPath Edge::shape() const
     path.addPath(strokedPath);
 
     return path;
+}
+
+void Edge::focusOut()
+{
+    isFocused = false;
+    update();
 }
