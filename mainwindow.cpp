@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->graphicsView->setScene(scene);
+    ui->graphicsView->setFocusPolicy(Qt::StrongFocus);
 
     map.addCity("Cairo", 250, 250);
     map.addCity("Alexandria", 50, 50);
