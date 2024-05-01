@@ -21,6 +21,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_createButton_clicked();
+
+    void on_searchButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;

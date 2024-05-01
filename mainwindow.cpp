@@ -5,6 +5,7 @@
 #include <QRandomGenerator>
 #include <QGraphicsTextItem>
 #include <QGraphicsEllipseItem>
+#include "createnewcity.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), scene(new QGraphicsScene(this))
@@ -66,3 +67,18 @@ void MainWindow::drawEdges() {
         }
     }
 }
+
+void MainWindow::on_createButton_clicked()
+{
+    //open crete a new window tab
+    createnewcity *createWindow = new createnewcity();
+    createWindow->show();
+    //hide();
+}
+
+
+void MainWindow::on_searchButton_clicked()
+{
+
+}
+
