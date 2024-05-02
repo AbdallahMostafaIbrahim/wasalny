@@ -3,9 +3,11 @@
 #include "node.h"
 #include "edge.h"
 #include "mapscene.h"
+#include "map.h"
 #include <QRandomGenerator>
 #include <QGraphicsTextItem>
 #include <QGraphicsEllipseItem>
+#include <string>
 #include "createnewcity.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -19,9 +21,14 @@ MainWindow::MainWindow(QWidget *parent)
     map.addCity("Cairo", 250, 250);
     map.addCity("Alexandria", 50, 50);
     map.addCity("October", 80, 200);
+    map.addCity("Aswan", 300, 100);
     map.addEdge("Cairo", "Alexandria", 5);
     map.addEdge("Cairo", "October", 8);
     map.addEdge("Alexandria", "October", 12);
+    map.addEdge("Aswan", "Cairo", 8);
+    map.addEdge("Aswan", "Alexandria", 15);
+
+
 
     connect(scene, &MapScene::unFocusEverything, this, [this]() {
         // Unfocus the nodes and edges if I press anywhere outside them
@@ -140,6 +147,21 @@ void MainWindow::on_createButton_clicked()
 
 void MainWindow::on_searchButton_clicked()
 {
+    // for ( auto &city : getCities()){   //check if cities are there
+    //     string current = city;
+    //     if (current )
+    //             return;
+    // }
+    // if(ui -> fromLineedit -> text() == "" || ui -> toLineedit -> text())
+    //     return;
+    string from = ui -> fromLineedit -> text().toStdString();
+    string to = ui -> toLineedit -> text().toStdString();
+    int distance = 0;
+    vector<string> path;
+    map.findShortestPath(from, to, distance, path);
+    ui -> DistanceCalculated_label -> setText(QString :: number(distance));
+    for (auto &Path :path)
+        ui -> PathCalculated_label -> setText(QString::fromStdString(Path));
 
 }
 

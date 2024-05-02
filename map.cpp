@@ -1,4 +1,9 @@
 #include "map.h"
+#include <queue>
+#include <unordered_map>
+#include <vector>
+#include <set>
+#include <algorithm>
 
 Map::Map() {}
 
@@ -44,6 +49,48 @@ void Map::removeCity(string city)
 void Map::findShortestPath(string from, string to, int &distance, vector<string> &path)
 {
     // TODO
+    unordered_map<string, int> dist;
+    unordered_map<string, string> prev;
+    priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> pq;
+
+    // Initialize distances
+    for ( auto &city : getCities()) {
+        dist[city] = 100;
+        prev[city] = "";
+    }
+    dist[from] = 0;
+    pq.push({0, from});
+
+    while (!pq.empty()) {
+        string u = pq.top().second;
+        pq.pop();
+
+        if (u == to) break;
+
+        for (auto &neighbor : getEdges(u)) {
+            string v = neighbor.first;
+            int weight = neighbor.second;
+
+            int alt_Path = dist[u] + weight;
+            if (alt_Path < dist[v]) {
+                dist[v] = alt_Path;
+                prev[v] = u;
+                pq.push({alt_Path, v});
+            }
+        }
+    }
+
+    // Build path
+    path.clear();
+    string current = to;
+    while (!current.empty()) {
+        path.push_back(current);
+        current = prev[current];
+    }
+    reverse(path.begin(), path.end());
+
+    // Set distance
+    distance = dist[to];
 }
 
 MapCoordinates Map::getCityCoordinate(const string& city)
