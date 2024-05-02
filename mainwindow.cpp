@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     map.addEdge("Cairo", "October", 8);
     map.addEdge("Alexandria", "October", 12);
     map.addEdge("Aswan", "Cairo", 8);
-    map.addEdge("Aswan", "Alexandria", 15);
+    map.addEdge("Aswan", "Alexandria", 10);
 
 
 
@@ -160,8 +160,14 @@ void MainWindow::on_searchButton_clicked()
     vector<string> path;
     map.findShortestPath(from, to, distance, path);
     ui -> DistanceCalculated_label -> setText(QString :: number(distance));
-    for (auto &Path :path)
-        ui -> PathCalculated_label -> setText(QString::fromStdString(Path));
+    QString pathText;
+    for (size_t i = 0; i < path.size(); ++i) {
+        if (i > 0) {
+            pathText += " -> ";
+        }
+        pathText += QString::fromStdString(path[i]);
+    }
+    ui -> PathCalculated_label -> setText(pathText);
 
 }
 
