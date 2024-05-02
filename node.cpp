@@ -36,6 +36,11 @@ void Node::focusOut()
     update();
 }
 
+QString Node::getCity()
+{
+    return city;
+}
+
 QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     if (change == ItemPositionChange && scene()) {

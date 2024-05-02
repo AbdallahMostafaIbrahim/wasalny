@@ -1,7 +1,7 @@
 #include "edge.h"
 #include <QPainter>
 
-Edge::Edge(QPointF f, QPointF t, int w) : from(f), to(t), weight(w)
+Edge::Edge(QPointF f, QPointF t, QString fCity, QString tCity, int w) : from(f), to(t), fromCity(fCity), toCity(tCity), weight(w)
 {
     setFlags(ItemIsFocusable);
     isFocused = false;

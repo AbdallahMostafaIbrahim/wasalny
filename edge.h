@@ -7,7 +7,7 @@ class Edge : public QGraphicsObject
 {
 Q_OBJECT
 public:
-    Edge(QPointF from, QPointF to, int weight);
+    Edge(QPointF from, QPointF to, QString fromCity, QString toCity, int weight);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
     void focusInEvent(QFocusEvent *event) override;
     QRectF boundingRect() const override;
@@ -16,6 +16,8 @@ public:
 private:
     QPointF from;
     QPointF to;
+    QString fromCity;
+    QString toCity;
     int weight;
     bool isFocused;
 signals:

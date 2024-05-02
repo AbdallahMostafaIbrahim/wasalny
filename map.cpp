@@ -18,6 +18,29 @@ void Map::addEdge(string from, string to, int distance)
     }
 }
 
+void Map::removeCity(string city)
+{
+    auto iter = graph.find(city);
+    if (iter != graph.end()) {
+        for (auto &edge : iter->second) {
+            string connectedCity = edge.first;
+            auto &edges = graph[connectedCity];
+            for (auto it = edges.begin(); it != edges.end();) {
+                if (it->first == city) {
+                    it = edges.erase(it);
+                } else {
+                    ++it;
+                }
+            }
+        }
+        graph.erase(iter);
+    }
+    auto iter2 = cityCoordinates.find(city);
+    if(iter2 != cityCoordinates.end()) {
+        cityCoordinates.erase(iter2);
+    }
+}
+
 void Map::findShortestPath(string from, string to, int &distance, vector<string> &path)
 {
     // TODO

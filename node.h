@@ -17,6 +17,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
     QRectF boundingRect() const override;
     void focusOut();
+    QString getCity();
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
     void focusInEvent(QFocusEvent *event) override;

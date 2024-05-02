@@ -76,10 +76,24 @@ void MainWindow::createNode(int x, int y, QString city)
             e->focusOut();
         }
         uiState = NODE_UI;
+        currentNode = node;
         ui->stackedWidget->setCurrentIndex(NODE_UI);
         scene->update();
     });
     nodes.append(node);
+}
+
+void MainWindow::removeAndDeleteNode(QString city)
+{
+    for (auto it = nodes.begin(); it != nodes.end(); ++it) {
+        Node* item = *it;
+        if (item->getCity() == city) {
+            it = nodes.erase(it);
+            scene->removeItem(item);
+            delete item;
+            break;
+        }
+    }
 }
 
 void MainWindow::drawEdges() {
@@ -94,7 +108,7 @@ void MainWindow::drawEdges() {
         MapCoordinates fromCoord = map.getCityCoordinate(city);
         for (const auto& edge : map.getEdges(city)) {
             MapCoordinates toCoord = map.getCityCoordinate(edge.first);
-            Edge* e = new Edge(QPointF(fromCoord.x, fromCoord.y), QPointF(toCoord.x, toCoord.y), edge.second);
+            Edge* e = new Edge(QPointF(fromCoord.x, fromCoord.y), QPointF(toCoord.x, toCoord.y), QString::fromStdString(city), QString::fromStdString(edge.first), edge.second);
             connect(e, &Edge::focused, this, [this, e]() {
                 for(const auto& ed: edges) {
                     if(e != ed) {
@@ -105,6 +119,7 @@ void MainWindow::drawEdges() {
                     n->focusOut();
                 }
                 uiState = EDGE_UI;
+                currentEdge = e;
                 ui->stackedWidget->setCurrentIndex(EDGE_UI);
                 scene->update();
             });
@@ -126,5 +141,15 @@ void MainWindow::on_createButton_clicked()
 void MainWindow::on_searchButton_clicked()
 {
 
+}
+
+void MainWindow::on_deleteNodeButton_clicked()
+{
+    if(uiState == NODE_UI && currentNode) {
+        map.removeCity(currentNode->getCity().toStdString());
+        removeAndDeleteNode(currentNode->getCity());
+        drawEdges();
+        scene->update();
+    }
 }
 

@@ -31,9 +31,8 @@ public:
 
 private slots:
     void on_createButton_clicked();
-
     void on_searchButton_clicked();
-
+    void on_deleteNodeButton_clicked();
 private:
     Ui::MainWindow *ui;
     MapScene *scene;
@@ -41,9 +40,11 @@ private:
     QList<Node*> nodes;
     Map map;
     UIState uiState;
+    Node* currentNode;
+    Edge* currentEdge;
     void displayMap();
     void drawEdges();
     void createNode(int x, int y, QString city);
-
+    void removeAndDeleteNode(QString);
 };
 #endif // MAINWINDOW_H
