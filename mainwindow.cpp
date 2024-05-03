@@ -113,6 +113,10 @@ void MainWindow::updateAllComboboxes()
     }
     ui->cityRouteSelector->clear();
     ui->cityRouteSelector->addItems(cities);
+    ui->fromCombobox->clear();
+    ui->fromCombobox->addItems(cities);
+    ui->toCombobox->clear();
+    ui->toCombobox->addItems(cities);
 }
 
 void MainWindow::drawEdges() {
@@ -168,8 +172,8 @@ void MainWindow::on_searchButton_clicked()
     // }
     // if(ui -> fromLineedit -> text() == "" || ui -> toLineedit -> text())
     //     return;
-    string from = ui -> fromLineedit -> text().toStdString();
-    string to = ui -> toLineedit -> text().toStdString();
+    string from = ui -> fromCombobox -> currentText().toStdString();
+    string to = ui -> toCombobox -> currentText().toStdString();
     int distance = 0;
     vector<string> path;
     map.findShortestPath(from, to, distance, path);

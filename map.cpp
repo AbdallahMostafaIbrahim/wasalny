@@ -57,7 +57,7 @@ void Map::deleteEdge(string from, string to)
         }
     }
 
-    auto &toEdges = graph[from];
+    auto &toEdges = graph[to];
     for(auto it = toEdges.begin(); it != toEdges.end(); ++it) {
         if(it->first == from) {
             toEdges.erase(it);
