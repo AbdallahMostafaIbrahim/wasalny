@@ -21,6 +21,7 @@ public:
     Map();
     void addCity(string cityName, float x, float y);
     void addEdge(string from, string to, int distance);
+    void deleteEdge(string from, string to);
     void removeCity(string city);
     void findShortestPath(string from, string to, int& distance, vector<string>& path);
     void extracted(vector<string> &cities);

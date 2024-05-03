@@ -13,6 +13,8 @@ public:
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
     void focusOut();
+    QString getFromCity();
+    QString getToCity();
 private:
     QPointF from;
     QPointF to;

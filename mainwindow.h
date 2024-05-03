@@ -33,6 +33,9 @@ private slots:
     void on_createButton_clicked();
     void on_searchButton_clicked();
     void on_deleteNodeButton_clicked();
+    void on_addRouteButton_clicked();
+    void on_deleteEdgeButton_clicked();
+    void on_updateDistanceButton_clicked();
 private:
     Ui::MainWindow *ui;
     MapScene *scene;
@@ -46,5 +49,6 @@ private:
     void drawEdges();
     void createNode(int x, int y, QString city);
     void removeAndDeleteNode(QString);
+    void updateAllComboboxes();
 };
 #endif // MAINWINDOW_H

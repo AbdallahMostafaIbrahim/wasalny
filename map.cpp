@@ -2,7 +2,6 @@
 #include <queue>
 #include <unordered_map>
 #include <vector>
-#include <set>
 #include <algorithm>
 
 Map::Map() {}
@@ -17,9 +16,53 @@ void Map::addCity(string cityName, float x, float y)
 
 void Map::addEdge(string from, string to, int distance)
 {
-    if(graph.find(from) != graph.end()) {
-        graph[from].push_back(make_pair(to, distance));
-        graph[to].push_back(make_pair(from, distance));
+    if(from == to) return;
+
+    auto &fromEdges = graph[from];
+    bool found = false;
+    for(auto it = fromEdges.begin(); it != fromEdges.end(); ++it) {
+        if(it->first == to) {
+            it->second = distance;
+            found = true;
+            break;
+        }
+    }
+
+    if(!found) {
+        fromEdges.push_back(make_pair(to, distance));
+    }
+
+    found = false;
+    auto &toEdges = graph[to];
+    for(auto it = toEdges.begin(); it != toEdges.end(); ++it) {
+        if(it->first == from) {
+            it->second = distance;
+            found = true;
+            break;
+        }
+    }
+
+    if(!found) {
+        toEdges.push_back(make_pair(from, distance));
+    }
+}
+
+void Map::deleteEdge(string from, string to)
+{
+    auto &fromEdges = graph[from];
+    for(auto it = fromEdges.begin(); it != fromEdges.end(); ++it) {
+        if(it->first == to) {
+            fromEdges.erase(it);
+            break;
+        }
+    }
+
+    auto &toEdges = graph[from];
+    for(auto it = toEdges.begin(); it != toEdges.end(); ++it) {
+        if(it->first == from) {
+            toEdges.erase(it);
+            break;
+        }
     }
 }
 
@@ -108,8 +151,6 @@ void Map::setCityCoordinate(const string &city, float x, float y)
     auto it = cityCoordinates.find(city);
     if (it != cityCoordinates.end()) {
         cityCoordinates[city] = {x, y};
-    } else {
-        throw std::runtime_error("City not found");
     }
 }
 

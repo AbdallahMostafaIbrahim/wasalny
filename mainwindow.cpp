@@ -8,7 +8,7 @@
 #include <QGraphicsTextItem>
 #include <QGraphicsEllipseItem>
 #include <string>
-#include "createnewcity.h"
+#include <QList>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), scene(new MapScene(this))
@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     displayMap();
+    updateAllComboboxes();
 }
 
 MainWindow::~MainWindow()
@@ -90,6 +91,7 @@ void MainWindow::createNode(int x, int y, QString city)
     nodes.append(node);
 }
 
+
 void MainWindow::removeAndDeleteNode(QString city)
 {
     for (auto it = nodes.begin(); it != nodes.end(); ++it) {
@@ -101,6 +103,16 @@ void MainWindow::removeAndDeleteNode(QString city)
             break;
         }
     }
+}
+
+void MainWindow::updateAllComboboxes()
+{
+    QList<QString> cities;
+    for(const auto& city : map.getCities()) {
+        cities.append(QString::fromStdString(city));
+    }
+    ui->cityRouteSelector->clear();
+    ui->cityRouteSelector->addItems(cities);
 }
 
 void MainWindow::drawEdges() {
@@ -138,10 +150,12 @@ void MainWindow::drawEdges() {
 
 void MainWindow::on_createButton_clicked()
 {
-    //open crete a new window tab
-    createnewcity *createWindow = new createnewcity();
-    createWindow->show();
-    //hide();
+    QString city = ui->createCityName->text();
+    map.addCity(city.toStdString(), 10, 10);
+    createNode(10, 10, city);
+    scene->update();
+    ui->createCityName->clear();
+    updateAllComboboxes();
 }
 
 
@@ -167,8 +181,7 @@ void MainWindow::on_searchButton_clicked()
         }
         pathText += QString::fromStdString(path[i]);
     }
-    ui -> PathCalculated_label -> setText(pathText);
-
+    ui->PathCalculated_label->setText(pathText);
 }
 
 void MainWindow::on_deleteNodeButton_clicked()
@@ -178,6 +191,32 @@ void MainWindow::on_deleteNodeButton_clicked()
         removeAndDeleteNode(currentNode->getCity());
         drawEdges();
         scene->update();
+        updateAllComboboxes();
     }
+}
+
+void MainWindow::on_addRouteButton_clicked()
+{
+    QString toCity = ui->cityRouteSelector->currentText();
+    if(toCity.isEmpty()) return;
+    QString fromCity = currentNode->getCity();
+    int distance = ui->distanceLineEdit->text().toInt();
+    map.addEdge(fromCity.toStdString(), toCity.toStdString(), distance);
+    drawEdges();
+    ui->distanceLineEdit->clear();
+    ui->cityRouteSelector->setCurrentIndex(-1);
+}
+
+void MainWindow::on_deleteEdgeButton_clicked()
+{
+    map.deleteEdge(currentEdge->getFromCity().toStdString(), currentEdge->getToCity().toStdString());
+    drawEdges();
+}
+
+void MainWindow::on_updateDistanceButton_clicked()
+{
+    int distance = ui->changeDistanceLineEdit->text().toInt();
+    map.addEdge(currentEdge->getFromCity().toStdString(), currentEdge->getToCity().toStdString(), distance);
+    drawEdges();
 }
 

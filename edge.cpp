@@ -58,3 +58,14 @@ void Edge::focusOut()
     isFocused = false;
     update();
 }
+
+QString Edge::getFromCity()
+{
+    return fromCity;
+}
+
+
+QString Edge::getToCity()
+{
+    return toCity;
+}
