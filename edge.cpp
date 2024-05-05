@@ -59,6 +59,12 @@ void Edge::focusOut()
     update();
 }
 
+void Edge::focusIn()
+{
+    isFocused = true;
+    update();
+}
+
 QString Edge::getFromCity()
 {
     return fromCity;

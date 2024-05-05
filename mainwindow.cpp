@@ -165,27 +165,29 @@ void MainWindow::on_createButton_clicked()
 
 void MainWindow::on_searchButton_clicked()
 {
-    // for ( auto &city : getCities()){   //check if cities are there
-    //     string current = city;
-    //     if (current )
-    //             return;
-    // }
-    // if(ui -> fromLineedit -> text() == "" || ui -> toLineedit -> text())
-    //     return;
     string from = ui -> fromCombobox -> currentText().toStdString();
     string to = ui -> toCombobox -> currentText().toStdString();
     int distance = 0;
     vector<string> path;
     map.findShortestPath(from, to, distance, path);
-    ui -> DistanceCalculated_label -> setText(QString :: number(distance));
+    ui -> distanceCalculatedLabel -> setText(QString :: number(distance));
     QString pathText;
     for (size_t i = 0; i < path.size(); ++i) {
+        if(i != path.size() - 1) {
+            for(auto& edge: edges) {
+                if(path[i] == edge->getFromCity().toStdString() && path[i+1] == edge->getToCity().toStdString()) {
+                    edge->focusIn();
+                    break;
+                }
+            }
+        }
+
         if (i > 0) {
             pathText += " -> ";
         }
         pathText += QString::fromStdString(path[i]);
     }
-    ui->PathCalculated_label->setText(pathText);
+    ui->pathCalculatedLabel->setText(pathText);
 }
 
 void MainWindow::on_deleteNodeButton_clicked()

@@ -9,7 +9,6 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    createnewcity.cpp \
     edge.cpp \
     loader.cpp \
     main.cpp \
@@ -19,7 +18,6 @@ SOURCES += \
     node.cpp
 
 HEADERS += \
-    createnewcity.h \
     edge.h \
     loader.h \
     mainwindow.h \
@@ -28,7 +26,6 @@ HEADERS += \
     node.h
 
 FORMS += \
-    createnewcity.ui \
     mainwindow.ui
 
 # Default rules for deployment.
