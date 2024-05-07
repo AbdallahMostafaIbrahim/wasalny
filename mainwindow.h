@@ -8,6 +8,8 @@
 #include "node.h"
 #include "map.h"
 #include "mapscene.h"
+#include "loader.h"
+#include<QCloseEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -28,6 +30,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    Map *getMap();
+
+
 
 private slots:
     void on_createButton_clicked();
@@ -50,5 +55,7 @@ private:
     void createNode(int x, int y, QString city);
     void removeAndDeleteNode(QString);
     void updateAllComboboxes();
+
+
 };
 #endif // MAINWINDOW_H

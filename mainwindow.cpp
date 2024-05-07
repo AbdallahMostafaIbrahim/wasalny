@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "qevent.h"
 #include "ui_mainwindow.h"
 #include "node.h"
 #include "edge.h"
@@ -9,26 +10,34 @@
 #include <QGraphicsEllipseItem>
 #include <string>
 #include <QList>
+#include<QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), scene(new MapScene(this))
 {
+
     ui->setupUi(this);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setFocusPolicy(Qt::StrongFocus);
     ui->stackedWidget->setCurrentIndex(HOME_UI);
-
-    map.addCity("Cairo", 250, 250);
-    map.addCity("Alexandria", 50, 50);
-    map.addCity("October", 80, 200);
-    map.addCity("Aswan", 300, 100);
-    map.addEdge("Cairo", "Alexandria", 5);
-    map.addEdge("Cairo", "October", 8);
-    map.addEdge("Alexandria", "October", 12);
-    map.addEdge("Aswan", "Cairo", 8);
-    map.addEdge("Aswan", "Alexandria", 10);
+    QFile mapfile(":/map.txt");
 
 
+
+    map=Loader::loadMap();
+    if(map.getCities().size()==0)
+    {
+
+        map.addCity("Cairo", 250, 250);
+        map.addCity("Alexandria", 50, 50);
+        map.addCity("October", 80, 200);
+        map.addCity("Aswan", 300, 100);
+        map.addEdge("Cairo", "Alexandria", 5);
+        map.addEdge("Cairo", "October", 8);
+        map.addEdge("Alexandria", "October", 12);
+        map.addEdge("Aswan", "Cairo", 8);
+        map.addEdge("Aswan", "Alexandria", 10);
+    }
 
     connect(scene, &MapScene::unFocusEverything, this, [this]() {
         // Unfocus the nodes and edges if I press anywhere outside them
@@ -49,6 +58,11 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+Map *MainWindow::getMap()
+{
+    return &map;
 }
 
 void MainWindow::displayMap() {
