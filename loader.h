@@ -4,18 +4,16 @@
 #include "map.h"
 #include <QFile>
 
-
-class Loader
-{
+class Loader {
 public:
-    Loader();
-    static void init();
-    static void saveMap(Map m);
-    static Map loadMap();
+  Loader();
+  static void init();
+  static void extracted(Map &m, QTextStream &stream);
+  static void saveMap(Map m);
+  static Map loadMap();
+
 private:
-
-  static  QFile* file;
+  static QFile *file;
 };
-
 
 #endif // LOADER_H

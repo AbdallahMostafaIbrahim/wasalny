@@ -69,6 +69,7 @@ void MainWindow::displayMap() {
     scene->clear();
 
     for (const auto& city : map.getCities()) {
+
         auto fromCoord = map.getCityCoordinate(city);
         float x = fromCoord.x;
         float y = fromCoord.y;
