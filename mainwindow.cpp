@@ -213,6 +213,8 @@ void MainWindow::on_deleteNodeButton_clicked()
         drawEdges();
         scene->update();
         updateAllComboboxes();
+        uiState = HOME_UI;
+        ui->stackedWidget->setCurrentIndex(HOME_UI);
     }
 }
 
@@ -231,6 +233,8 @@ void MainWindow::on_addRouteButton_clicked()
 void MainWindow::on_deleteEdgeButton_clicked()
 {
     map.deleteEdge(currentEdge->getFromCity().toStdString(), currentEdge->getToCity().toStdString());
+    uiState = HOME_UI;
+    ui->stackedWidget->setCurrentIndex(HOME_UI);
     drawEdges();
 }
 
