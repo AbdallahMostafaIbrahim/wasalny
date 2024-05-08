@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidget->setCurrentIndex(HOME_UI);
     QFile mapfile(":/map.txt");
 
-
+    scene->setBackgroundBrush(QBrush(Qt::white));
 
     map=Loader::loadMap();
     if(map.getCities().size()==0)

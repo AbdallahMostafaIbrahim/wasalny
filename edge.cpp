@@ -9,7 +9,7 @@ Edge::Edge(QPointF f, QPointF t, QString fCity, QString tCity, int w) : from(f),
 
 void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-
+    painter->setPen(QPen(Qt::black));
     painter->drawText(QPointF((from.x() + to.x()) / 2, (from.y() + to.y()) / 2), QString::number(weight));
     painter->setPen(QPen(Qt::blue));
     if(isFocused){
