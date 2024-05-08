@@ -170,7 +170,7 @@ void MainWindow::drawEdges() {
 void MainWindow::on_createButton_clicked()
 {
     QString city = ui->createCityName->text();
-    map.addCity(city.toStdString(), 10, 10);
+    map.addCity(city.replace(" ", "_").toStdString(), 10, 10);
     createNode(10, 10, city);
     scene->update();
     ui->createCityName->clear();
