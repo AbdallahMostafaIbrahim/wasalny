@@ -98,7 +98,7 @@ void Map::findShortestPath(string from, string to, int &distance, vector<string>
 
     // Initialize distances
     for ( auto &city : getCities()) {
-        dist[city] = 100;
+        dist[city] = 999999;
         prev[city] = "";
     }
     dist[from] = 0;

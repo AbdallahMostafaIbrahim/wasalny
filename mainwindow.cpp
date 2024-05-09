@@ -242,6 +242,14 @@ void MainWindow::on_updateDistanceButton_clicked()
 {
     int distance = ui->changeDistanceLineEdit->text().toInt();
     map.addEdge(currentEdge->getFromCity().toStdString(), currentEdge->getToCity().toStdString(), distance);
+    QString fromCity = currentEdge->getFromCity();
+    QString toCity = currentEdge->getToCity();
     drawEdges();
+    // Fix UI Issue
+    for(const auto& edge : edges) {
+        if(edge->getFromCity() == fromCity && edge->getToCity() == toCity) {
+            edge->focusInEvent(nullptr);
+        }
+    }
 }
 

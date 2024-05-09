@@ -39,7 +39,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="homePage">
      <widget class="QPushButton" name="createButton">
@@ -233,7 +233,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Distance</string>
+       <string/>
       </property>
      </widget>
      <widget class="QLabel" name="label_5">
@@ -338,7 +338,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
