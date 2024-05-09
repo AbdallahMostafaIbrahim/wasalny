@@ -3,14 +3,13 @@
 
 #include <QGraphicsScene>
 
-class MapScene : public QGraphicsScene
-{
-Q_OBJECT
+class MapScene : public QGraphicsScene {
+  Q_OBJECT
 public:
-    MapScene(QObject *parent = nullptr);
-    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+  MapScene(QObject *parent = nullptr);
+  void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 signals:
-    void unFocusEverything();
+  void unFocusEverything();
 };
 
 #endif // MAPSCENE_H

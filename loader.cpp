@@ -35,23 +35,21 @@ void Loader::saveMap(Map m) {
 
   for (string city : m.getCities()) {
 
-  MapCoordinates coordinates = m.getCityCoordinate(city);
-      stream << QString::fromStdString(city) << " " << coordinates.x << " "
-             << coordinates.y << "\n";
+    MapCoordinates coordinates = m.getCityCoordinate(city);
+    stream << QString::fromStdString(city) << " " << coordinates.x << " "
+           << coordinates.y << "\n";
 
-      for (pair<string, int> edge : m.getEdges(city)) {
-
-        stream << QString::fromStdString(edge.first) << " " << edge.second
-               << "\n";
-      }
-      stream << "#\n";
+    for (pair<string, int> edge : m.getEdges(city)) {
+      stream << QString::fromStdString(edge.first) << " " << edge.second
+             << "\n";
+    }
+    stream << "#\n";
   }
   stream.flush();
   file->close();
 }
 
 Map Loader::loadMap() {
-
   if (!file->open(QIODevice::ReadOnly | QIODevice::Text)) {
     QMessageBox::critical(0, "Error", "Couldn't load level");
   }
