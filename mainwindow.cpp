@@ -175,6 +175,12 @@ void MainWindow::on_searchButton_clicked() {
   map.findShortestPath(from, to, distance, path);
   ui->distanceCalculatedLabel->setText(QString ::number(distance));
   QString pathText;
+
+  // Unfocus All Edges first
+  for (auto &edge : edges) {
+    edge->focusOut();
+  }
+
   for (size_t i = 0; i < path.size(); ++i) {
     if (i != path.size() - 1) {
       for (auto &edge : edges) {

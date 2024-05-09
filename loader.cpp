@@ -9,6 +9,7 @@
 QFile *Loader::file = NULL;
 Loader::Loader() {}
 
+// Create a folder called wasalny_data at home directory
 void Loader::init() {
   QString homeDir =
       QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
@@ -25,6 +26,8 @@ void Loader::init() {
     file->close();
   }
 }
+
+// Put each city and its x, y coordinates followed by edges in the form of "from_city to_city distance\n" then a # to separate each city and the other
 void Loader::saveMap(Map m) {
   if (!file->open((QIODevice::ReadWrite | QIODevice::Text))) {
     qDebug() << file->errorString();
@@ -49,6 +52,7 @@ void Loader::saveMap(Map m) {
   file->close();
 }
 
+// Read the map just the same way as we save it, but opposite
 Map Loader::loadMap() {
   if (!file->open(QIODevice::ReadOnly | QIODevice::Text)) {
     QMessageBox::critical(0, "Error", "Couldn't load level");

@@ -14,6 +14,9 @@ void Map::addCity(string cityName, float x, float y) {
 }
 
 void Map::addEdge(string from, string to, int distance) {
+  // We can't accept -ve distance :(
+  distance = abs(distance);
+
   if (from == to)
     return;
 
