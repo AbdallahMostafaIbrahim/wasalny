@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QPen>
 
+// Node represents a city on the scene
 Node::Node(qreal x, qreal y, qreal w, qreal h, QString c,
            QGraphicsItem *parent) {
   setFlags(ItemIsFocusable | ItemIsMovable | ItemSendsGeometryChanges);
@@ -14,6 +15,7 @@ Node::Node(qreal x, qreal y, qreal w, qreal h, QString c,
   isFocused = false;
 }
 
+// Draws an elipse, and draws a thicker border if it is highlighted.
 void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                  QWidget *widget) {
   painter->setBrush(QBrush(Qt::green));

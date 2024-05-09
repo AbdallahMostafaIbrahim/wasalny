@@ -7,6 +7,7 @@ Edge::Edge(QPointF f, QPointF t, QString fCity, QString tCity, int w)
   isFocused = false;
 }
 
+// Draws Line between the two points and displays the distance over that line
 void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                  QWidget *widget) {
   painter->setPen(QPen(Qt::black));
@@ -19,6 +20,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   painter->drawLine(from, to);
 }
 
+// Called to highlight edge and send a signal to the main window
 void Edge::focusInEvent(QFocusEvent *event) {
   isFocused = true;
   emit focused();
@@ -27,11 +29,12 @@ void Edge::focusInEvent(QFocusEvent *event) {
 
 QRectF Edge::boundingRect() const { return QRectF(from, to).normalized(); }
 
+// Draws the shape that that will be used for the mouse to collide with
 QPainterPath Edge::shape() const {
   QPainterPath path;
 
   QPen pen(Qt::blue, 1);
-  if (isFocused) {
+  if (isFocused) { // Draw a thicker line if it is highlighted
     pen.setWidth(4);
   }
   pen.setCapStyle(Qt::RoundCap);
@@ -48,11 +51,13 @@ QPainterPath Edge::shape() const {
   return path;
 }
 
+// Removes the highlighted effect
 void Edge::focusOut() {
   isFocused = false;
   update();
 }
 
+// Manually Applies highlighted effect. This is used for displaying the shortest path
 void Edge::focusIn() {
   isFocused = true;
   update();

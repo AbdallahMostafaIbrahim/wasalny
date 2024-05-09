@@ -139,6 +139,7 @@ void Map::findShortestPath(string from, string to, int &distance,
   distance = dist[to];
 }
 
+// Returns x,y coordinates of city on the scene
 MapCoordinates Map::getCityCoordinate(const string &city) {
   auto it = cityCoordinates.find(city);
   if (it != cityCoordinates.end()) {
